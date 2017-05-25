@@ -318,4 +318,35 @@ private Subtree f(TreeNode node) {
 \begin{task}{2. (a)}
 	\framebox{C} The inner most for-loop runs in constant time (can be written \texttt{print "12345678910"}) which means the code blocks order is $O(n^2)$.
 \end{task}
+
+\begin{task}{3. (a)}
+	\framebox{A} Every time \textbf{remove($S$)} gets called $\abs{S}=1$ since each element that gets inserted is removed directly afterwards. This means both \textbf{remove($S$)} and \textbf{insert($i,S$)} will run in $O(1)$ here. The running time therefore is $O(n)$.
+\end{task}
+
+\begin{task}{(b)}
+	\framebox{B}
+\end{task}
+
+\begin{task}{4. (a)}
+	\framebox{A} This is the correct option since this should represent the running time. Even though the algorithm takes the maximum of the two you need to calculate both which takes $T(n-1)+T(n-2)$ time. Checking $n > 1$, calculate $\max(x,y)$ and returning 1 takes constant time ($O(1)$).
+\end{task}
+
+\begin{task}{5. (a)}
+	\framebox{A} Since $L$ and $R$ are the only sets in $B_{l,r}$ the total number of vertices are $l+r$.
+\end{task}
+
+\begin{task}{(b)}
+	\framebox{C} Each node in $L$ will have $r$ number of edges which means the total is $lr$.
+\end{task}
+
+\begin{task}{(c)}
+	\framebox{B} No two nodes in $L$ will have an edge nor two nodes in $R$. All nodes in $L$ have edges with all nodes in $R$. This means the answer is either $l$ or $r$.
+\end{task}
+
+\begin{task}{(d)}
+	\framebox{C} If $l+r\leq 3$ either $r=1$ or $l=1$ since $L$ and $R$ are nonempty sets. The solo node can then be seen as an root to a tree the other nodes as children.
+\end{task}
+
+
+
 \end{document}
