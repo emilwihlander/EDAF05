@@ -374,5 +374,45 @@ ca *
 	\qquad Use the defintions from page 2 and let $m=\abs{E}$. Start BFS on one of the vertices (words) with a star and continue until you find the other or you run out of edges (neighbour relations). The example instance is drawn on page 2. The running time for BFS is $O(n+m)$.
 \end{task}
 
+\subsection*{Dynamic programming}
+
+\begin{task}{8. (a)}
+	\framebox{D} Alphabetic, you can iterate through all words and calculate the local optimal based on all alphabetically smaller neighbours.
+\end{task}
+
+\begin{task}{(b)}
+	\qquad Let the function star$(w)$ return 1 if $w$ has a star else 0.
+	\[\OPT(x)=\max_{y<x}\{\OPT(y):\{y,x\}\in E\}+\text{star}(x)\]
+\end{task}
+
+\begin{task}{(c)}
+	\framebox{A} You only need to calulate the optimal of each word once, and that is constants if you start with the smallest word and iterate through the rest.
+\end{task}
+
+\begin{task}{(d)}
+	\framebox{A} You only need to save the optimal of each word once which makes it linear.
+\end{task}
+
+\subsection*{Network flow}
+
+\begin{task}{9. (a)}
+	\framebox{B} Cycle, you can see this as an vertex-disjoint paths problem where you need to find at least 2 paths.
+\end{task}
+
+\begin{task}{(b)}
+	\qquad Use the graph definition from page 2. Let $s$ represent the source and $t$ represent the sink. 
+	\begin{enumerate}
+		\item Replace each undirected edge, $\{u,v\}$, with the directed edges $(u,v)$ and $(v,u)$.
+		\item Replace each vertex, $v$, with $v_{in}$ and $v_{out}$, add the edge $(v_{in},v_{out})$ and change all edges, $(u,v)$, to $(u_{out},v_{in})$.
+		\item Remove $s_{in}$ and $t_{out}$ and all connected edges since they aren't useful.
+		\item Set the weight of all edges to 1.
+	\end{enumerate}
+	The maximum flow problem represents the maximum vertex-disjoint paths problem and there is a solution to the original problem if maximum flow $\geq 2$. 
+	
+	Let $m'$ and $m$ denote the number of edges in the resulting graph and the original respectively, this means $m'=n+2m$. Use the Ford-Fulkerson algorithm which has the running time $O(fm')$ where $f$ is the number of found paths, but since we only need 2 we can set $f=2$. Which gives the running time $O(2(n+2m))=O(n+m)$ 
+	
+	\includegraphics[scale=0.4]{120523-9b.png}
+\end{task}
+
 
 \end{document}
