@@ -324,7 +324,7 @@ private Subtree f(TreeNode node) {
 \end{task}
 
 \begin{task}{(b)}
-	\framebox{B}
+	\framebox{B} The size of $S$ linearly goes from 1 to $n/2$. The upper bound can clearly be set to $O(n\log n)$ (if  $\abs{S}=n$ is true for every iteration and \textbf{remove($S$)} gets called every iteration). To set a lower bound we look at the last half of the sum (from $i=n/2$ to $n$) and lower the bound for each summand to $\log (n/2)=\log (n)-c$ which means the sum is at least $\frac{1}{2}\*\frac{1}{2}\*n\*(\log(n)-c)$. That’s $\Omega(n\log n)$.
 \end{task}
 
 \begin{task}{4. (a)}
