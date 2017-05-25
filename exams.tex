@@ -1,0 +1,321 @@
+%http://www.cs.put.poznan.pl/ksiek/latexmath.html
+%https://en.wikibooks.org/wiki/LaTeX/Advanced_Mathematics
+
+
+\documentclass[a4paper]{article} 
+\usepackage[T1]{fontenc} 
+\usepackage[utf8]{inputenc} 
+\usepackage[fleqn]{amsmath}
+\usepackage{amssymb}
+\usepackage{cancel}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{systeme}
+\usepackage{environ}
+\usepackage{color}
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+
+\usepackage{listings}
+\lstset{language=Java,
+	basicstyle=\ttfamily,
+	keywordstyle=\color{javapurple}\bfseries,
+	stringstyle=\color{javared},
+	commentstyle=\color{javagreen},
+	morecomment=[s][\color{javadocblue}]{/**}{*/},
+	tabsize=4,
+	showspaces=false,
+	showstringspaces=false}
+
+\usepackage[top=1in, bottom=1.25in, left=1.0in, right=1.25in]{geometry}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+
+\newenvironment{task}[1]
+{
+	\begin{description}[align=right]
+		\item [#1]
+}{		%input
+	\end{description}
+}
+
+\newcommand{\abs}[1]{\left|#1\right|}
+
+\newcommand{\taskref}[1]{\textbf{#1}}
+
+\DeclareMathOperator{\lra}{\ \Leftrightarrow\ }
+\DeclareMathOperator{\llra}{\ \longleftrightarrow\ }
+\DeclareMathOperator{\ra}{\ \Rightarrow\ }
+\DeclareMathOperator{\OPT}{OPT}
+
+\let\*\relax
+\DeclareMathOperator{\*}{\cdot}
+
+\title{Algoritmer, datastrukturer och komplexitet\\ EDAF05} 
+\author{Emil Wihlander\\ dat15ewi@student.lu.se} 
+
+\begin{document} 
+\maketitle
+
+\section*{Exam 140526}
+\subsection*{Analysis of algorithms}
+
+\begin{task}{1. (a)}
+	\framebox{A} Because $N$ needs to be twice as big every time you want to print one more star the algorithm has logarithmic growth.
+\end{task}
+
+\begin{task}{(b)}
+	\framebox{D} The function f will call g $N$ times which means g will print $0, 1, \ldots, N$ stars. The total number of stars will therefore be the sum of that serie of numbers. The formula for arethmetic sums is $N\*(0+N)/2=(1/2)\*N^2$ which give it an order of $O(N^2)$.
+\end{task}
+
+\subsection*{Divide-and-conquer}
+
+\begin{task}{2. (a)}
+	\framebox{A} Subtree, you can easily break it down into subproblems by recursively solving it for the children. The conquer part is a bit more tricky. You need to save both the largest perfect subtree (lps) and the largest perfect subtree with the top node as base (tps). With that information you can calculate the lps and tps one level up, see \taskref{(b)}. 
+\end{task}
+
+\begin{task}{(b)}
+	\qquad The following function solves it by a recursive divide-and-conquer algorithm. \texttt{Subtree} is a class that contains the largest perfect subtree (\texttt{.lps()}) and the largest perfect subtree with the top node as base (\texttt{.tps()}). \texttt{TreeNode} contains the children (\texttt{.left()} and \texttt{.right()}).
+\begin{lstlisting}
+private Subtree f(TreeNode node) {
+	// base case
+	if (node == null) 
+		return new Subtree(0, 0)
+	// DIVIDE
+	Subtree left = f(node.left());
+	Subtree right = f(node.right());
+	// CONQUER
+	// Builds the new top perfect subtree (tps)
+	int tps = 1 + Math.min(left.tps(), right.tps());
+	// Finds the new largest perfect subtree (lps)
+	int lps = Math.max(left.lps(), right.lps(), tps);
+	
+	return new Subtree(x, y);
+}
+\end{lstlisting}
+\end{task}
+
+\begin{task}{(c)}
+	\framebox{B} Since there are no cycles it will traverse through each node exactly once. The conquer step is $O(1)$ which means the algorithm will run in $O(n)$ where $n$ is the number of nodes.
+\end{task}
+
+\subsection*{Graph connectivity}
+
+\begin{task}{3. (a)}
+	\framebox{B} Clearance, see \taskref{(b)} for explanation.
+\end{task}
+
+\begin{task}{(b)}
+	\qquad Start with an empty graph, add each $w\in E$ in ascending order until there is a connection between $s$ and $t$. If you use Breadth-first search for finding a connection the worst case performance for each iteration is $0, 2, 4, \ldots , 2\*n$ the aretmethic sum is $2\sum_{k=0}^{n}k=2\*n^2/2=n^2$ the order is therefore $O(n^2)$.
+\end{task}
+
+\subsection*{Dynamic programming}
+
+\begin{task}{4. (a)}
+	\framebox{C} Long. Since we know all edges are directed from left to right we analyze all vertices from left to right. The value for each vertex will be the value of the max of all past vertices that is connected (if none is, assign value 0) to the current vertex plus one, and that is the dynamic programming part. 
+\end{task}
+
+\begin{task}{(b)}
+	\framebox{C} The problem is one-dimensional and therefore only one of the $OPT(i)$ options can be correct (\framebox{C} or \framebox{G}). The past vertices you should compare are depented on which edges exist rather than vertices with the same iterative distance. \framebox{C} is therefore the only possible option. 
+\end{task}
+
+\begin{task}{(c)}
+	\framebox{B} The algorithm will iterate through all vertices, $n$, and edges, $m$, exactly once ($n+m$). The maximum number of incoming edges is for $v_1=0, v_2=1, \ldots, v_n=n-1$ which gives the aretmethic sum of $m\leq (n-1)^2/2$ which is larger than $n$ for large values. The order of the algorithm is therefore $O(m)$.
+\end{task}
+
+\begin{task}{(d)}
+	\framebox{A} You will save one value per vertex (maximum path length to current vertex) and the space order will therefore be $O(n)$.
+\end{task}
+
+\subsection*{Network flow}
+
+\begin{task}{5. (a)}
+	\framebox{D} V, you can look at this as a maximum flow problem, see \taskref{(b)} for futher explanation.
+\end{task}
+
+\begin{task}{(b)}
+	\qquad Let $L$ be the first column of vertices and $R$ the second column vertices. Then add the edges from the original problem and set their weight to 1, add edges from $s$ to all vertices in the first column with the weight 2 and finally add edges from all vertices in the second column to $t$ with the weight 1.
+	
+	If the maximum flow equals $2n$ there is a solution, otherwise not. The example from the problem definition is visualized below.
+	
+	\includegraphics[scale=0.3]{140526-5b.png}
+\end{task}
+
+\begin{task}{(c)}
+	\framebox{D} As seen in \taskref{(b)}, the number of nodes is $n+m+2\ra O(n+m)$
+\end{task}
+
+\subsection*{Computational complexity}
+
+\begin{task}{6. (a)}
+	\framebox{E} Crossing, the specific case of when $k=0$ is the Hamiltonian path problem which means Crossing is at least as hard. Hamiltonian path problem is NP-complete which therefore means Crossing is at least NP-complete as well.
+\end{task}
+
+\begin{task}{(b)}
+	\framebox{H} See \taskref{(a)}.
+\end{task}
+
+\begin{task}{(c)}
+	\framebox{B} ``The easiest way to see that is to take the following NP-hard problem, Hamiltonian path, and prove that Crossing is at least as hard as Hamiltonian path (Hamiltonian path $\leq_p$ Crossing)''
+\end{task}
+
+\begin{task}{(d)}
+	\qquad Given an instance to problem Hamiltonian path, $H$, consting of $G(V,E)$, construct an instance of Crossing, $C$, consting of $G'(V',E'), k$. Let $G=G'$ and $k=0$. This reduction runs in constant time.
+	
+	If $T$ is a solution to $G$ it's also a solution to $C$. Hence Hamiltonian path $\leq_p$ Crossing.
+\end{task}
+
+\pagebreak
+\section*{Exam 130529}
+\subsection*{Analysis of algorithms}
+
+\begin{task}{1. (a)}
+	\framebox{C} The code in the \texttt{if} clause has the running time $O(n^2)$ and the code in the \texttt{else} clause has $O(n)$. Since the code block has the running time $O(n^2)$ for large integers that is the answer.
+\end{task}
+
+\begin{task}{2. (a)}
+	\framebox{A} The opposite argument can be made here. Since the code block has the running time $O(n)$ for large integers that is the answer.
+\end{task}
+
+\subsection*{Greedy}
+
+\begin{task}{3. (a)}
+	\framebox{A} Buildstacks, you can solve this by using the greedy condition ``always take the coin with the highest value'' and then filling the stacks, starting with $S_1$, then $S_2$ and so on, until you run out of coins.
+\end{task}
+
+\begin{task}{(b)}
+	\framebox{A} See \taskref{(a)}.
+\end{task}
+
+\begin{task}{(c)}
+	\framebox{B} See \taskref{(a)}.
+\end{task}
+
+\begin{task}{(d)}
+	\begin{tabular}{r l}
+		$S_1$ & $150,125,125$ \\ \hline
+		$S_2$ & $100,100,75$ \\ \hline
+		$S_3$ & $50,50,38$ \\ \hline
+		$S_4$ & $25$ \\ 
+	\end{tabular}
+\end{task}
+
+\begin{task}{(e)}
+	\framebox{A} The only thing the algorithm has to do is sort the coins in descending order and then you have all your stacks lined up one after the other. This means the algorithm depends on the number of coins, $n$, and not the stack size, $m$.
+\end{task}
+
+\subsection*{Graph connectivity}
+
+\begin{task}{4. (a)}
+	\framebox{D} Rotten, let each stack be a node and if two stacks have a common type of coin there is an edge between them. If all nodes are connected the disease will spread to all stack regardless of what coin you choose, otherwise not.
+\end{task}
+
+\begin{task}{(b)}
+	\qquad The example instance is non-solvable since all nodes aren't connected. 
+	
+	\includegraphics[scale=0.3]{130529-4b.png}
+\end{task}
+
+\begin{task}{(c)}
+	\framebox{B} See \taskref{(a)}.
+\end{task}
+
+\begin{task}{(d)}
+	\framebox{C} The first one isn't correct since the shortest path isn't relevant to this problem. The second one isn't correct either since the edges aren't weighted, and an unweighted graph can't have negative cycles which means the last one is false as well. The third one is correct because both Prim's algorithm and BFS (Breadth-first search) finds a minimal spanning tree (if the number of nodes in the tree equals $m$ there is a solution). Prim's running time is $O(m+n \log n)$ and BFS's is $O(m+n)$ where $m$ is the number of nodes and $n$ is the number of edges, BFS is therefore faster.
+\end{task}
+
+\begin{task}{(e)}
+	\framebox{A} If BFS is used the running time is $O(n+m)$.
+\end{task}
+
+\subsection*{Dynamic programming}
+
+\begin{task}{5. (a)}
+	\framebox{B} Neighbours, you can iterate, $i$, from left to right where the maximum amount you can take up to the current coin is dependent only on the coins to the left and what the maximum amount at each of those coins is.
+\end{task}
+
+\begin{task}{(b)}
+	\framebox{G} The optimal solution is the maximum of either the optimal solution for the coin to the left or the current coin value plus the optimal solution for the coin two place to the left.
+	
+	The example has the following solution (the image is missing a 5 between the 25 and 1, see input/output box at end):
+	\begin{align*}
+		\OPT(1)=&\max\{\OPT(0), \OPT(-1)+100\}=\max\{0,100\}=100 \\
+		\OPT(2)=&\max\{\OPT(1), \OPT(0)+50\}=\max\{100,50\}=100 \\
+		\OPT(3)=&\max\{\OPT(2), \OPT(1)+100\}=\max\{100,200\}=200 \\
+		\OPT(4)=&\max\{\OPT(3), \OPT(2)+50\}=\max\{200,150\}=200 \\
+		\OPT(5)=&\max\{\OPT(4), \OPT(3)+150\}=\max\{200,350\}=350 \\
+		\OPT(6)=&\max\{\OPT(5), \OPT(4)+125\}=\max\{350,325\}=350 \\
+		\OPT(7)=&\max\{\OPT(6), \OPT(5)+25\}=\max\{350,375\}=375 \\
+		\OPT(8)=&\max\{\OPT(7), \OPT(6)+5\}=\max\{375,355\}=375 \\
+		\OPT(9)=&\max\{\OPT(8), \OPT(7)+1\}=\max\{375,376\}=376 \\
+		\OPT(10)=&\max\{\OPT(9), \OPT(8)+75\}=\max\{376,450\}=450
+	\end{align*} 
+	This is the maximum sum while the output should be which coins to pick, you can easily sovle that by saving the path the algorithm takes. 
+\end{task}
+
+\begin{task}{(c)}
+	\framebox{A} As seen in \taskref{(b)}, you need to traverse each coin exactly once.
+\end{task}
+
+\subsection*{Network flow}
+
+\begin{task}{6. (a)}
+	\framebox{E} Strike, the children shall ``flow'' through the hosts who have a capacity, attributes typical to Network Flow.
+\end{task}
+
+\begin{task}{(b)}
+	\qquad The first row is all the chilren and the second is all the hosts. The edges between children and hosts are defined by the relationships. the weight between each host and the sink should be the hosts capacity and all other weights should be 1.
+	
+	\includegraphics[scale=0.3]{130529-6b.png}
+\end{task}
+
+\begin{task}{(c)}
+	\framebox{D} the number of nodes is $n+m+2$, see \taskref{(b)}.
+\end{task}
+
+\subsection*{Computational compexity}
+
+\begin{task}{7. (a)}
+	\framebox{C} Takestacks, let each stack be a node and if two stacks have a common type of coin there is an edge between them. Takestacks then becomes a maximum independent set problem, which is NP-hard.
+\end{task}
+
+\begin{task}{(b)}
+	\framebox{C} It is a maximum independent set problem.
+\end{task}
+
+\begin{task}{(c)}
+	\framebox{B} ``The easiest way to see that is to take the following NP-hard problem, Independent set, and prove that Takestacks is at least as hard as Independent set (Independent set $\leq_p$ Takestacks)''
+\end{task}
+
+\begin{task}{(d)}
+	\qquad Given an instance to problem Independent Set, $I$, consisting of $G(V,E)$. We construct an instance of Takestacks with $m=\abs{V}$ stacks as follows: 
+	
+	For each vertex $v_i\in V,i=1,2,\ldots,\abs{V}$, we construct a stack $S_i$. For each edge $\{v_i,v_j\}\in E$, we insert a coin of the same unique arbitrary value in stacks $S_i$ and $S_j$. We now have coin values $c_1,c_2,\ldots,c_n,n=\abs{E}$. This reduction runs in linear time.
+	
+	If $T(S_1,S_2,\ldots,S_m,c_1,c_2,\ldots,c_n)$ is a solution to Takestacks, $T$ is also a solution to the Independent set problem $I$.
+	Hence Independent Set $\leq_p$ Takestacks
+\end{task}
+
+\pagebreak
+\section*{Exam 120523}
+\subsection*{Analysis of algorithms}
+
+\begin{task}{1. (a)}
+	\framebox{A} For each factor you analyze which term is dominant for large $n$'s ($n^3$ is more dominant than $n^2$). 
+\end{task}
+
+\begin{task}{(b)}
+	\framebox{B} $O(n^3\log n)\neq O(n^3/\log n)$
+\end{task}
+
+\begin{task}{(c)}
+	\framebox{B} $O(n^3\log n)\neq O(n^3)$
+\end{task}
+
+\begin{task}{2. (a)}
+	\framebox{C} The inner most for-loop runs in constant time (can be written \texttt{print "12345678910"}) which means the code blocks order is $O(n^2)$.
+\end{task}
+\end{document}
