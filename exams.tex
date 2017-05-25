@@ -19,7 +19,7 @@
 \definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
 
 \usepackage{listings}
-\lstset{language=Java,
+\lstset{
 	basicstyle=\ttfamily,
 	keywordstyle=\color{javapurple}\bfseries,
 	stringstyle=\color{javared},
@@ -79,7 +79,7 @@
 
 \begin{task}{(b)}
 	\qquad The following function solves it by a recursive divide-and-conquer algorithm. \texttt{Subtree} is a class that contains the largest perfect subtree (\texttt{.lps()}) and the largest perfect subtree with the top node as base (\texttt{.tps()}). \texttt{TreeNode} contains the children (\texttt{.left()} and \texttt{.right()}).
-\begin{lstlisting}
+\begin{lstlisting}[language=Java]
 private Subtree f(TreeNode node) {
 	// base case
 	if (node == null) 
@@ -347,6 +347,32 @@ private Subtree f(TreeNode node) {
 	\framebox{C} If $l+r\leq 3$ either $r=1$ or $l=1$ since $L$ and $R$ are nonempty sets. The solo node can then be seen as an root to a tree the other nodes as children.
 \end{task}
 
+\subsection*{Greedy}
+
+\begin{task}{6. (a)}
+	\qquad Consider the following input:
+\begin{lstlisting}
+aa
+ab
+ba
+ca *
+\end{lstlisting}
+	The greedy algorithm will output \texttt{aa -> ab}, while the optimal solution is \texttt{aa -> ba -> ca}.
+\end{task}
+
+\subsection*{Graph connectivity}
+
+\begin{task}{7. (a)}
+	\framebox{A} Ladder, you can solve this with BFS (Breadth-first search) which is a graph connectivity algorithm.
+\end{task}
+
+\begin{task}{(b)}
+	\framebox{A} BFS is an algorithm for finding shortest path between to vertices (words) or realizing there is no path. DFS nor MST doesn't necessarily find the shortest path and Topological sorting only works on directed acyclic graphs (which this isn't).
+\end{task}
+
+\begin{task}{(c)}
+	\qquad Use the defintions from page 2 and let $m=\abs{E}$. Start BFS on one of the vertices (words) with a star and continue until you find the other or you run out of edges (neighbour relations). The example instance is drawn on page 2. The running time for BFS is $O(n+m)$.
+\end{task}
 
 
 \end{document}
