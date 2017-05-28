@@ -228,7 +228,7 @@ private Subtree f(TreeNode node) {
 \end{task}
 
 \begin{task}{(e)}
-	\framebox{A} If BFS is used the running time is $O(n+m)$.
+	\framebox{A} If BFS is used the running time is $O(n+m)$. \footnote{The answer is correct if $m$ represent the number of nodes and $n$ the number of edges. This is not the case since $n$ represents the number of coins types which isn't necessarily the same as number of edges. This is a misstake according to Thore and $n$ should seen as the number of edges.}
 \end{task}
 
 \subsection*{Dynamic programming}
@@ -400,8 +400,9 @@ ca *
 \end{task}
 
 \begin{task}{(b)}
-	\qquad Use the graph definition from page 2. Let $s$ represent the source and $t$ represent the sink. 
+	\qquad Use the graph definition from page 2.
 	\begin{enumerate}
+		\item Let one of the starred words be source and the other sink.
 		\item Replace each undirected edge, $\{u,v\}$, with the directed edges $(u,v)$ and $(v,u)$.
 		\item Replace each vertex, $v$, with $v_{in}$ and $v_{out}$, add the edge $(v_{in},v_{out})$ and change all edges, $(u,v)$, to $(u_{out},v_{in})$.
 		\item Remove $s_{in}$ and $t_{out}$ and all connected edges since they aren't useful.
@@ -414,5 +415,274 @@ ca *
 	\includegraphics[scale=0.4]{120523-9b.png}
 \end{task}
 
+\subsection*{Computational complexity}
 
+\begin{task}{10. (a)}
+	\framebox{B} 
+\end{task}
+
+\subsection*{NP-hardness}
+
+\begin{task}{12. (f)}
+	\qquad Given an instance of Hamiltonian path, $G=(V,E)$, construct an instance of Manystars, $M$. Let $v\in V$ represent a starred word and for $\{v,u\}\in E$ let $v$ and $u$ be neigbouring words. Given a solution, $T$, to $M$ where all starred words are connected with a simple path, $T$ is also a solution to $G$.
+\end{task}
+
+
+\pagebreak
+\section*{Exam 110525}
+\subsection*{Analysis of algorithms}
+
+\begin{task}{1. (a)}
+	\framebox{A}, $n^2$ is the dominating term, the order is therefore $O(n^2\log n)$.
+\end{task}
+
+\begin{task}{(b)}
+	\framebox{B}, , $O(n^{3/2}\log n)$ is smaller than $O(n^2\log n)$.
+\end{task}
+
+\begin{task}{(c)}
+	\framebox{B}, $O(n^{3/2})$ is smaller than $O(n^2\log n)$.
+\end{task}
+
+\begin{task}{2. (a)}
+	\framebox{D}
+\end{task}
+
+\begin{task}{3. (a)}
+	\framebox{A}
+\end{task}
+
+\begin{task}{(b)}
+	\framebox{D}
+\end{task}
+
+\begin{task}{4. (a)}
+	\framebox{A}
+\end{task}
+
+\begin{task}{(b)}
+	\framebox{C}
+\end{task}
+
+\subsection*{Graphs}
+
+\begin{task}{5. (a)}
+	\framebox{B}
+\end{task}
+
+\begin{task}{(b)}
+	\framebox{C}
+\end{task}
+
+\begin{task}{(c)}
+	\framebox{A}
+\end{task}
+
+\begin{task}{(d)}
+	\framebox{B}
+\end{task}
+
+\begin{task}{(e)}
+	\framebox{D}
+\end{task}
+
+\subsection*{Greedy}
+
+\begin{task}{6. (a)}
+\end{task}
+
+\subsection*{Graph connectivity}
+
+\begin{task}{12. (f)}
+	Given an instance of Indendent set, $I$, consisting of $G(V,E)$. and construct an instance of Graphkings, $K$, consisting of $G'(V',E')$ and $k$. Let $G'=G$. Reduction runs in constant time.
+	
+	If $T\geq k$ is a solution to Graphkings, $T$ is a solution to $K$.
+\end{task}
+
+\pagebreak
+\section*{Exam 100528}
+\subsection*{Analysis of algorithms}
+
+\begin{task}{1. (a)}
+	\framebox{A} The dominating term in $(n^2+2n)/n+\frac{1}{1000}n^{3/2}=n+2+\frac{1}{1000}n^{3/2}$ is $\frac{1}{1000}n^{3/2}$ which means $f(n)=O(n^{3/2}\log n)$. $O(n^2\log n)>O(n^{3/2}\log n) \Rightarrow f(n)=O(n^2\log n)$.
+\end{task}
+
+\begin{task}{(b)}
+\framebox{A} See \taskref{(a)}.
+\end{task}
+
+\begin{task}{(c)}
+	\framebox{B} $O(n^{3/2})<O(n^{3/2}\log n) \Rightarrow f(n)\neq O(n^{3/2})$.
+\end{task}
+
+\begin{task}{2. (a)}
+	\framebox{C} The \textbf{while}-loop runs for $O(\log n)$ and the \textbf{for}-loop for $O(n)$ which gives a total running time of $O(n\log n)$.
+\end{task}
+
+\begin{task}{3. (a)}
+	\framebox{A} The upper bound can clearly be set to $O(n\log n)$ (if $\abs{S}=n$ is true for every iteration in both loops the running time will be $O(n\log n)$). Since $\abs{S}\leq n$ the running time is at most $O(n\log n)$. No option is smaller than that.
+\end{task}
+
+\begin{task}{(b)}
+	\framebox{A} If either \textbf{insert} or \textbf{remove} has $O(log\abs{S})$ that loop will run in $O(n\log n)$ because $\abs{S}=n$ in between the loops which means one of the loops wont run in linear time.
+\end{task}
+
+\begin{task}{4. (a)}
+	\framebox{A} The running time will be the running time of $T(n-1)$, $T(n-3)$ and the constant opreations, $O(1)$, combined.
+\end{task}
+
+\begin{task}{(b)}
+	\framebox{C} 
+\end{task}
+
+\begin{task}{(c)}
+	\framebox{C} Since the problem is halved for every step in the recursion $T(n)$ will be called $O(\log n)$ times. This means the total running time will be $O(\log n \* n\log^2 n)=O(n\log^3 n)$.
+\end{task}
+
+\subsection*{Graphs}
+
+\begin{task}{5. (a)}
+	\framebox{A}
+\end{task}
+
+\begin{task}{(b)}
+	\framebox{A} There is $r-1$ edges from $v_1$ and there is $r-1$ edges between $v_2,\ldots,v_r$ which is a total of $r+1+r+1=2r+2$.
+\end{task}
+
+\begin{task}{(c)}
+	\framebox{B} A tree can't contain cycles.
+\end{task}
+
+\begin{task}{(d)}
+	\framebox{A} Start in $v_1$ and go to all the nodes in numerical order then go from $v_r$ to $v_1$, this as a Hamiltonian cycle.
+\end{task}
+
+\begin{task}{(e)}
+	\framebox{C} You can choose every second node of $v_2,\ldots,v_r$ (if $r$ is even there will be two adjacent nodes that are not in the set, this is dealt with by using the floor ($\lfloor \rfloor$) function). 
+\end{task}
+
+\subsection*{Greedy}
+
+\begin{task}{6. (a)}
+	\framebox{A} Sell! Sort the columns by the number of flowers in them and choose the $k$ columns with the most number of flowers. 
+\end{task}
+
+\begin{task}{(b)}
+	\framebox{B} See \taskref{(a)}.
+\end{task}
+
+\begin{task}{(c)}
+	\framebox{B} See \taskref{(a)}.
+\end{task}
+
+\begin{task}{(d)}
+	\framebox{A} See \taskref{(a)}.
+\end{task}
+
+\begin{task}{(e)}
+	\framebox{A} At first build a heap-based priority queue by finding the numbers of flowers in current cloumn (takes $O(n)$) and add it to the queue (takes $O(m)$) which gives a total running time of $O(nm)$. Then extract $k$ elements (takes $O(k\log m)$). The combined running time is therefore $O(nm+k\log n)$.
+\end{task}
+
+\subsection*{Dynamic programming}
+
+\begin{task}{7. (a)}
+	\framebox{B} Square
+\end{task}
+
+\begin{task}{(b)}
+	\framebox{A} It needs to be dependent on whether or not there's a flower at the current position (\framebox{A},\framebox{B},\framebox{F}) and return 0 if there's no flower (\framebox{A}).
+\end{task}
+
+\begin{task}{(c)}
+	\framebox{C} You need to pass each nposition exactly once, hence $O(nm)$.
+\end{task}
+
+\begin{task}{(d)}
+	\framebox{C} You need to save a constant amount of data for each position.
+\end{task}
+
+\subsection*{Network flow}
+
+\begin{task}{8. (a)}
+	\framebox{D} Dance, see \taskref{(d)}.
+\end{task}
+
+\begin{task}{(b)}
+	\framebox{A} See \taskref{(d)}.
+\end{task}
+
+\begin{task}{(c)}
+	\framebox{A} See \taskref{(d)}.
+\end{task}
+
+\begin{task}{(d)}
+	\qquad You have two columns of nodes, let each node in the first represent a row and each node in the second represent a column. Insert an directed edge from a row-node to a column-node if they have a flower in common. Add a source with directed edges to each node in the first column. Add a sink with directed edges from each node in the second column. Set the weight of all edges to 1.
+	
+	\includegraphics[scale=0.3]{100528-8d.png}
+	
+	If the maximum flow through the network is greater than or equal to $k$ then there is a solution.
+\end{task}
+
+\subsection*{Computational complexity}
+
+\begin{task}{9. (a)}
+	\framebox{A}
+\end{task}
+
+\begin{task}{(b)}
+	\framebox{B}
+\end{task}
+
+\begin{task}{(c)}
+	\framebox{A}
+\end{task}
+
+\begin{task}{(d)}
+	\framebox{A}
+\end{task}
+
+\begin{task}{10. (a)}
+	\framebox{C}
+\end{task}
+
+\begin{task}{(b)}
+	\framebox{D}
+\end{task}
+
+\begin{task}{(c)}
+	\framebox{B}
+\end{task}
+
+\subsection*{NP-hardness}
+
+\begin{task}{11. (a)}
+	\framebox{C} EU, it's the same problem as set cover since you can see each column as a set where each element is the flowers corresponding rows, you need to find minimum set cover and return all other columns.
+\end{task}
+
+\begin{task}{(b)}
+	\framebox{D}
+\end{task}
+
+\begin{task}{(c)}
+	\framebox{B}
+\end{task}
+
+\begin{task}{(d)}
+	\framebox{D}
+\end{task}
+
+\begin{task}{(e)}
+	\framebox{K}
+\end{task}
+
+\begin{task}{(f)}
+	\qquad Given an instance of Set Cover, $C$, consisting of a set of sets, $S$, construct an instance of EU, $E$. Let $S_i\in S$ represent a column in $E$ and $s_j\in S_i$ a flower where column $i$ and row $j$ meets. Given a solution, $T$, to $C$, $S \setminus T$ is a soltion to $E$.
+\end{task}
+
+
+
+
+\begin{task}{100107 12. (f)}
+	\qquad Given an instance of Hamiltonian cycle, $G=(V,E)$, construct an instance of Hyperspace. We represent $v\in V$ with a star. For $v$ and $u$ where $\{v,u\}\not\in E$ we place a space danger in between the corresponding stars. If there is a cycle that visits each star exactly once, $G$ is Hamiltonian.
+\end{task}
 \end{document}
