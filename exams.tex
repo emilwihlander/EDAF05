@@ -165,7 +165,7 @@ private Subtree f(TreeNode node) {
 \begin{task}{(d)}
 	\qquad Given an instance to problem Hamiltonian path, $H$, consting of $G(V,E)$, construct an instance of Crossing, $C$, consting of $G'(V',E'), k$. Let $G=G'$ and $k=0$. This reduction runs in constant time.
 	
-	If $T$ is a solution to $G$ it's also a solution to $C$. Hence Hamiltonian path $\leq_p$ Crossing.
+	If $T$ is a solution to $H$ it's also a solution to $C$. Hence Hamiltonian path $\leq_p$ Crossing.
 \end{task}
 
 \pagebreak
@@ -424,40 +424,39 @@ ca *
 \subsection*{NP-hardness}
 
 \begin{task}{12. (f)}
-	\qquad Given an instance of Hamiltonian path, $G=(V,E)$, construct an instance of Manystars, $M$. Let $v\in V$ represent a starred word and for $\{v,u\}\in E$ let $v$ and $u$ be neigbouring words. Given a solution, $T$, to $M$ where all starred words are connected with a simple path, $T$ is also a solution to $G$.
+	\qquad Given an instance of Hamiltonian path, $G=(V,E)$, construct an instance of Manystars, $M$. Let $v\in V$ represent a starred word and for $\{v,u\}\in E$ let $v$ and $u$ be neigbouring words. Given a solution, $T$, to $G$, $T$ is also a solution to $M$.
 \end{task}
-
 
 \pagebreak
 \section*{Exam 110525}
 \subsection*{Analysis of algorithms}
 
 \begin{task}{1. (a)}
-	\framebox{A}, $n^2$ is the dominating term, the order is therefore $O(n^2\log n)$.
+	\framebox{A} $n^2$ is the dominating term, the order is therefore $O(n^2\log n)$.
 \end{task}
 
 \begin{task}{(b)}
-	\framebox{B}, , $O(n^{3/2}\log n)$ is smaller than $O(n^2\log n)$.
+	\framebox{B} $O(n^{3/2}\log n)$ is smaller than $O(n^2\log n)$.
 \end{task}
 
 \begin{task}{(c)}
-	\framebox{B}, $O(n^{3/2})$ is smaller than $O(n^2\log n)$.
+	\framebox{B} $O(n^{3/2})$ is smaller than $O(n^2\log n)$.
 \end{task}
 
 \begin{task}{2. (a)}
-	\framebox{D}
+	\framebox{D} The \textbf{while}-loop will run for $O(n/2)=O(n)$ which gives a total running time of $O(n^2)$.
 \end{task}
 
 \begin{task}{3. (a)}
-	\framebox{A}
+	\framebox{A} $\abs{S}\leq 1$ which means \textbf{insert} and \textbf{remove} runs in constant time. This gives a totalt running time of $O(n)$.
 \end{task}
 
 \begin{task}{(b)}
-	\framebox{D}
+	\framebox{D} The running time can't be lower than $O(n)$ since that's the run time for the \textbf{for}-loop. 
 \end{task}
 
 \begin{task}{4. (a)}
-	\framebox{A}
+	\framebox{A} The total running time will be the running time of $f(n-1)$, $f(n-3)$ and then constant oprations in the function combined. Therefore $T(n)=T(n-1)+T(n-3)+O(1)$.
 \end{task}
 
 \begin{task}{(b)}
@@ -475,28 +474,200 @@ ca *
 \end{task}
 
 \begin{task}{(c)}
-	\framebox{A}
+	\framebox{A} Since there is no cycles it's a tree.s
 \end{task}
 
 \begin{task}{(d)}
-	\framebox{B}
+	\framebox{B} You need to pass through the center node to reach all other nodes.
 \end{task}
 
 \begin{task}{(e)}
-	\framebox{D}
+	\framebox{D} Choose all nodes except the center node.
 \end{task}
 
 \subsection*{Greedy}
 
 \begin{task}{6. (a)}
+	It will always move north east since this will be the only positive integer.
+	
+	\includegraphics[scale=0.3]{110525-6a.png}
 \end{task}
 
 \subsection*{Graph connectivity}
+
+\begin{task}{7. (a)}
+	\framebox{C} See \taskref{arg1}
+\end{task}
+
+\begin{task}{(b)}
+	Let each cell be a node and all valid knight moves be edges. If a white piece is in either end of an edge, remove that edge. Then find a path from the knight to the king by using e.g. BFS.
+	\includegraphics[scale=0.3]{110525-7b.png}
+\end{task}
+
+\subsection*{Dynamic programming}
+
+\begin{task}{7. (a)}
+	\framebox{C} See \taskref{arg1}
+\end{task}
+
+
 
 \begin{task}{12. (f)}
 	Given an instance of Indendent set, $I$, consisting of $G(V,E)$. and construct an instance of Graphkings, $K$, consisting of $G'(V',E')$ and $k$. Let $G'=G$. Reduction runs in constant time.
 	
 	If $T\geq k$ is a solution to Graphkings, $T$ is a solution to $K$.
+\end{task}
+
+\pagebreak
+\section*{Exam 110825}
+\subsection*{Analysis of algorithms}
+
+\begin{task}{1. (a)}
+	\fbox{A} $n^2$ is the cominating term which means $f(n)=O(n^2)<O(n^2\log n)$.
+\end{task}
+
+\begin{task}{(b)}
+	\fbox{B} $f(n)=O(n^2)>O(n^{3/2}\log n)$.
+\end{task}
+
+\begin{task}{(c)}
+	\fbox{B} $f(n)=O(n^2)>O(n^{3/2})$.
+\end{task}
+
+\begin{task}{2. (a)}
+	\fbox{C} Since $j$ doubles for every iteration the \textbf{while}-loop will run in $\log n$ which means the total running time will be $n\log n$.
+\end{task}
+
+\begin{task}{3. (a)}
+	\fbox{A} The \textbf{for}-loop runs $n$ times and the inside runs in constant time.
+\end{task}
+
+\begin{task}{(b)}
+	\fbox{D} The running time can't be smaller than the running time for the \textbf{for}-loop.
+\end{task}
+
+\subsection*{Greedy}
+
+\begin{task}{4. (a)}
+	\qquad Green represents the optimal route and red represents the route chosen by the greedy algorithm.
+	
+	\includegraphics[scale=0.3]{110825-4a.png}
+\end{task}
+
+\subsection*{Graph connectivity}
+
+\begin{task}{5. (a)}
+	\fbox{C}
+\end{task}
+
+\pagebreak
+\begin{task}{(b)}
+	\qquad Let each number, excluding forbidden numbers, be a node and add an edge between two numbers if all except one of the corresponding digits are equal and the unequal digits lie next to each other on the wheel. Use BFS starting on start until reaching target.
+	
+	Number of nodes is $10^n-k$ and number of vertices is $O(n(10^n-k))$.
+	
+	The following example uses $n=2$.
+	
+\begin{lstlisting}
+input:
+00 --start
+13 --target
+89 --nbr of forbidden nodes
+01
+03
+08
+14
+...
+99
+\end{lstlisting}
+	
+	\includegraphics[scale=0.3]{110825-5b.png}
+\end{task}
+
+\subsection*{Dynamic programming}
+
+\begin{task}{6. (a)}
+	\fbox{B}
+\end{task}
+
+\begin{task}{(b)}
+	\[\OPT(i,j)=\max\{\OPT(i-1,j-2), \OPT(i-2,j-1)\}+c(i,j)\]
+\end{task}
+
+\begin{task}{(c)}
+	\qquad The running time and space complexity is $O(n^2)$.
+\end{task}
+
+\subsection*{Network flow}
+
+\begin{task}{7. (a)}
+	\fbox{A} 
+\end{task}
+
+\begin{task}{(b)}
+	\qquad 
+	\begin{enumerate}
+		\item Let $a$ be the source and $b$ the sink.
+		\item Replace each vertex, $v$, with $v_{in}$ and $v_{out}$, add the edge $(v_{in},v_{out})$ and change all edges, $(u,v)$, to $(u_{out},v_{in})$.
+		\item Set the weight of all edges to 1.
+		\item Remove $a_{in}$ and $b_{out}$ and all connected edges since they aren't useful.
+	\end{enumerate} 
+\end{task}
+
+\subsection*{Computational complexity}
+
+\begin{task}{8. (a)}
+	\fbox{A}
+\end{task}
+
+\begin{task}{(b)}
+	\fbox{A} This seems to be wrong, $v$ isn't relevant.
+\end{task}
+
+\begin{task}{(c)}
+	\fbox{A}
+\end{task}
+
+\begin{task}{(d)}
+	\qquad This seems to be wrong, $v$ isn't relevant.
+\end{task}
+
+\begin{task}{9. (a)}
+	\qquad Since the question seems to be wrong, no answer is given.
+\end{task}
+
+\begin{task}{(b)}
+	\qquad Since the question seems to be wrong, no answer is given.
+\end{task}
+
+\begin{task}{(c)}
+	\qquad Since the question seems to be wrong, no answer is given.
+\end{task}
+
+\subsection*{NP-hardness}
+
+\begin{task}{10. (a)}
+	\fbox{D} ChessHate \footnote{The instruction ``Pieces of different types can never be placed on neighbouring vertices'' should be ``Pieces of the same type can never be placed on neighbouring vertices'' according to Thore}
+\end{task}
+
+\begin{task}{(b)}
+	\fbox{A}
+\end{task}
+
+\begin{task}{(c)}
+	\fbox{B}
+\end{task}
+
+\begin{task}{(d)}
+	\fbox{A}
+\end{task}
+
+\begin{task}{(e)}
+	\fbox{L}
+\end{task}
+
+\begin{task}{(f)}
+	\qquad Given an instance of Graph colouring, $G=(V,E),\{c_1,c_2,c_3\}$, construct an instance of ChessHate, $C=(V',E')$. Let $(V',E')=(V,E)$ and let $\{c_1,c_2,c_3\}$ represent Rook, Pawn and Knight respectively. Given a solution, $T$, to $G$, $T$ is also a solution to $C$. 
 \end{task}
 
 \pagebreak
