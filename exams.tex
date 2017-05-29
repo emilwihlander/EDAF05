@@ -93,7 +93,7 @@ private Subtree f(TreeNode node) {
 	// Finds the new largest perfect subtree (lps)
 	int lps = Math.max(left.lps(), right.lps(), tps);
 	
-	return new Subtree(x, y);
+	return new Subtree(tps, lps);
 }
 \end{lstlisting}
 \end{task}
